@@ -6,7 +6,7 @@ This is a React + Vite project styled with Bootstrap 5, designed for managing an
 
 1. **Clone the repository:**
    ```bash
-   git clone <repo-url>
+   git clone git@github.com:SamanDastgheib/SportRadar_BE_Exercise_Frontend.git
    cd SportRadar_BE_Exercise_Frontend
    ```
 2. **Install dependencies:**
