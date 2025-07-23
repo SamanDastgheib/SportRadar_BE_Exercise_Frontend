@@ -165,34 +165,42 @@ function AddEvent() {
     <div className="container mt-5 pt-4">
       <h2 className="fw-bold mb-4" style={{color: '#e30613'}}>Add Event</h2>
       <form className="card shadow p-4 mx-auto" style={{maxWidth: 600, borderRadius: 16, background: '#fff'}} onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label fw-semibold">Event Date</label>
-          <input type="date" className="form-control" name="event_date" value={form.event_date} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label fw-semibold">Event Time</label>
-          <input type="time" className="form-control" name="event_time" value={form.event_time} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label fw-semibold">Sport</label>
-          <select className="form-select" name="sport_id" value={form.sport_id} onChange={handleChange} required>
-            <option value="">Select sport</option>
-            {sports.map(s => <option key={s.id} value={s.id}>{s.name || s.sport || s.id}</option>)}
-          </select>
-        </div>
-        <div className="mb-3">
-          <label className="form-label fw-semibold">Team 1</label>
-          <select className="form-select" name="team1_id" value={form.team1_id} onChange={handleChange} required>
-            <option value="">Select team 1</option>
-            {teams.map(t => <option key={t.id} value={t.id}>{t.name || t.team || t.id}</option>)}
-          </select>
-        </div>
-        <div className="mb-3">
-          <label className="form-label fw-semibold">Team 2</label>
-          <select className="form-select" name="team2_id" value={form.team2_id} onChange={handleChange} required>
-            <option value="">Select team 2</option>
-            {teams.map(t => <option key={t.id} value={t.id}>{t.name || t.team || t.id}</option>)}
-          </select>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Event Date</label>
+              <input type="date" className="form-control" name="event_date" value={form.event_date} onChange={handleChange} required />
+            </div>
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Event Time</label>
+              <input type="time" className="form-control" name="event_time" value={form.event_time} onChange={handleChange} required />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Sport</label>
+              <select className="form-select" name="sport_id" value={form.sport_id} onChange={handleChange} required>
+                <option value="">Select sport</option>
+                {sports.map(s => <option key={s.id} value={s.id}>{s.name || s.sport || s.id}</option>)}
+              </select>
+            </div>
+            <div className="row">
+              <div className="col-6 mb-3">
+                <label className="form-label fw-semibold">Team 1</label>
+                <select className="form-select" name="team1_id" value={form.team1_id} onChange={handleChange} required>
+                  <option value="">Select team 1</option>
+                  {teams.map(t => <option key={t.id} value={t.id}>{t.name || t.team || t.id}</option>)}
+                </select>
+              </div>
+              <div className="col-6 mb-3">
+                <label className="form-label fw-semibold">Team 2</label>
+                <select className="form-select" name="team2_id" value={form.team2_id} onChange={handleChange} required>
+                  <option value="">Select team 2</option>
+                  {teams.map(t => <option key={t.id} value={t.id}>{t.name || t.team || t.id}</option>)}
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
         {error && <div className="alert alert-danger">{error}</div>}
         {success && <div className="alert alert-success">{success}</div>}
