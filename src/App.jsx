@@ -8,6 +8,7 @@ function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sportFilter, setSportFilter] = useState('All');
 
   useEffect(() => {
     fetch('http://localhost:8000/eventResults')
@@ -20,6 +21,12 @@ function Events() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Compute unique sports for the filter dropdown
+  const uniqueSports = Array.from(new Set(events.map(e => e.sport))).filter(Boolean);
+
+  // Filter events based on selected sport
+  const filteredEvents = sportFilter === 'All' ? events : events.filter(e => e.sport === sportFilter);
+
   if (loading) return <div className="text-center mt-5"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
   if (error) return <div className="alert alert-danger mt-4">Failed to load events.</div>;
 
@@ -30,6 +37,22 @@ function Events() {
     <div className="container-fluid mt-5 pt-4 d-flex justify-content-center">
       <div className="card shadow-lg border-0 w-100" style={{maxWidth: '1100px', borderRadius: '18px', background: '#fff', padding: '2rem 1.5rem'}}>
         <h2 className="mb-4 fw-bold" style={{color: '#e30613'}}>Events</h2>
+        {/* Sport Filter Dropdown */}
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="sportFilter" className="me-2 fw-semibold">Filter by Sport:</label>
+          <select
+            id="sportFilter"
+            className="form-select w-auto"
+            value={sportFilter}
+            onChange={e => setSportFilter(e.target.value)}
+            style={{minWidth: '160px'}}
+          >
+            <option value="All">All</option>
+            {uniqueSports.map(sport => (
+              <option key={sport} value={sport}>{sport}</option>
+            ))}
+          </select>
+        </div>
         <div className="table-responsive">
           <table className="table table-striped table-hover align-middle mb-0" style={{minWidth: '700px', fontSize: '1.08rem', borderRadius: '12px', overflow: 'hidden'}}>
             <thead style={{backgroundColor: darkBlue, color: '#fff'}}>
@@ -43,7 +66,7 @@ function Events() {
               </tr>
             </thead>
             <tbody>
-              {events.map(event => (
+              {filteredEvents.map(event => (
                 <tr key={event.id} style={{verticalAlign: 'middle'}}>
                   <td>{event.day}</td>
                   <td>{event.date}</td>
